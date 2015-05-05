@@ -1,0 +1,23 @@
+{
+  "name"           : "svg-reactify",
+  "description"    : "transform SVG files into React elements",
+  "homepage"       : "https://github.com/coma/svg-reactify",
+  "repository"     : "https://github.com/coma/svg-reactify",
+  "main"           : "./index.js",
+  "version"        : "0.0.0",
+  "license"        : "MIT",
+  "private"        : false,
+  "authors"        : [
+    "Eduardo García Sanz <eduardo@comakai.com>"
+  ],
+  "keywords"       : [
+    "browserify",
+    "react",
+    "svg",
+    "browserify-transform"
+  ],
+  "dependencies"   : {},
+  "devDependencies": {},
+  "scripts"        : {},
+  "engines"        : {}
+}
