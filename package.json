@@ -4,7 +4,7 @@
   "homepage"       : "https://github.com/coma/svg-reactify",
   "repository"     : "https://github.com/coma/svg-reactify",
   "main"           : "./index.js",
-  "version"        : "0.2.0",
+  "version"        : "0.3.0",
   "license"        : "MIT",
   "private"        : false,
   "authors"        : [
@@ -19,7 +19,8 @@
   "dependencies"   : {
       "through"    : "^2.3",
       "react-tools": "^0.13",
-      "svgo"       : "^0.5"
+      "svgo"       : "^0.5",
+      "extend"     : "^2"
   },
   "devDependencies": {},
   "scripts"        : {},

@@ -1,15 +1,26 @@
 var through = require('through'),
+    extend  = require('extend'),
     SVGO    = require('svgo'),
     react   = require('react-tools');
+
+var svgo = new SVGO();
+
+var settings = {
+    react: {
+        es5       : true,
+        sourceMap : false,
+        stripTypes: false,
+        harmony   : false
+    },
+    svgo: {}
+};
 
 var isSVG = function (filename) {
 
     return (/\.svg$/i).test(filename);
 };
 
-var svgo = new SVGO();
-
-module.exports = function (filename) {
+var transform = function (filename) {
 
     var write = function (buffer) {
 
@@ -24,13 +35,7 @@ module.exports = function (filename) {
     var out = function (svg) {
 
         var source = "var React = require('react');module.exports = React.createClass({render: function () { return (" + svg.data + "); }});",
-            output = react.transform(source, {
-                es5           : true,
-                sourceMap     : false,
-                sourceFilename: filename,
-                stripTypes    : false,
-                harmony       : false
-            });
+            output = react.transform(source, settings.react);
 
         stream.queue(output);
         stream.queue(null);
@@ -40,4 +45,19 @@ module.exports = function (filename) {
         stream = isSVG(filename) ? through(write, end) : through();
 
     return stream;
+};
+
+module.exports = function (a) {
+
+    if (typeof a === 'string' || a instanceof String) {
+
+        return transform(a);
+    }
+
+    extend(settings.react, a.react);
+    extend(settings.svgo, a.svgo);
+
+    svgo = new SVGO(settings.svgo);
+
+    return transform;
 };
