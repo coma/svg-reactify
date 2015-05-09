@@ -22,7 +22,7 @@ var isSVG = function (filename) {
 
 var wrapScript = function (filename, data) {
 
-    return 'module.exports = require("react").createClass({render: function () { return (' + data + '); }});';
+    return 'var React = require("react");module.exports = React.createClass({render: function () { return (' + data + '); }});';
 };
 
 var wrapSpan = function (filename, data) {

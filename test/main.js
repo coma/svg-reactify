@@ -41,7 +41,7 @@ describe('when passing a string', function () {
                         return;
                     }
 
-                    assert.strictEqual(output, 'module.exports = require("react").createClass({render: function () { return (React.createElement("svg", {viewBox: "0 0 100 100", xmlns: "http://www.w3.org/2000/svg"}, React.createElement("path", {d: "M0 0h100v100H0z"}))); }});');
+                    assert.strictEqual(output, 'var React = require("react");module.exports = React.createClass({displayName: "exports",render: function () { return (React.createElement("svg", {viewBox: "0 0 100 100", xmlns: "http://www.w3.org/2000/svg"}, React.createElement("path", {d: "M0 0h100v100H0z"}))); }});');
                     done();
                 }
             };
@@ -71,7 +71,7 @@ describe('when passing a string', function () {
                         return;
                     }
 
-                    assert.strictEqual(output, 'module.exports = require("react").createClass({render: function () { return (React.createElement("span", {class: "icon icon-foo"}, React.createElement("svg", {viewBox: "0 0 100 100", xmlns: "http://www.w3.org/2000/svg"}, React.createElement("path", {d: "M0 0h100v100H0z"})))); }});');
+                    assert.strictEqual(output, 'var React = require("react");module.exports = React.createClass({displayName: "exports",render: function () { return (React.createElement("span", {class: "icon icon-foo"}, React.createElement("svg", {viewBox: "0 0 100 100", xmlns: "http://www.w3.org/2000/svg"}, React.createElement("path", {d: "M0 0h100v100H0z"})))); }});');
                     done();
                 }
             };
