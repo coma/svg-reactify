@@ -1,0 +1,12 @@
+language: node_js
+node_js :
+- "0.11"
+- "iojs"
+deploy:
+  provider: npm
+  email: eduardo@comakai.com
+  api_key:
+    secure: JX1zgdfsP3rwISjl2mn6LNFOwNYcy2XIuL1mHXhAllDE5utvvaum8/zt/PWuBY7qlocGN8NZfjDsWc3PlDiezs9o0JZ0y0ipBgcPLPJJqbXc6U5EIVAUwnOMs7HorF1yz4S5T4GfBWwWfhFPr3setSHmRDTKyjmUBUqnvUj9Pq8=
+  on:
+    tags: true
+    repo: coma/svg-reactify

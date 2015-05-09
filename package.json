@@ -4,7 +4,7 @@
   "homepage"       : "https://github.com/coma/svg-reactify",
   "repository"     : "https://github.com/coma/svg-reactify",
   "main"           : "./index.js",
-  "version"        : "0.3.0",
+  "version"        : "0.4.0",
   "license"        : "MIT",
   "private"        : false,
   "authors"        : [
@@ -22,7 +22,18 @@
       "svgo"       : "^0.5",
       "extend"     : "^2"
   },
-  "devDependencies": {},
-  "scripts"        : {},
-  "engines"        : {}
+  "devDependencies": {
+      "jshint"        : "^2",
+      "jshint-stylish": "^1",
+      "mocha"         : "^2",
+      "rewire"        : "^2"
+  },
+  "scripts"           : {
+    "lint": "jshint --verbose --reporter node_modules/jshint-stylish/stylish.js index.js",
+    "test": "npm run lint && mocha test"
+  },
+  "engines"        : {
+    "iojs"         : ">= 1.0.0",
+    "node"         : ">= 0.11.0"
+  }
 }

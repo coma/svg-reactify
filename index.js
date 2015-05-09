@@ -1,9 +1,8 @@
 var through = require('through'),
     extend  = require('extend'),
     SVGO    = require('svgo'),
-    react   = require('react-tools');
-
-var svgo = new SVGO();
+    react   = require('react-tools'),
+    svgo    = new SVGO();
 
 var settings = {
     react: {
@@ -12,7 +11,7 @@ var settings = {
         stripTypes: false,
         harmony   : false
     },
-    svgo: {}
+    svgo : {}
 };
 
 var isSVG = function (filename) {
@@ -34,7 +33,7 @@ var transform = function (filename) {
 
     var out = function (svg) {
 
-        var source = "var React = require('react');module.exports = React.createClass({render: function () { return (" + svg.data + "); }});",
+        var source = 'module.exports = require("react").createClass({render: function () { return (' + svg.data + '); }});',
             output = react.transform(source, settings.react);
 
         stream.queue(output);
