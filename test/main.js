@@ -41,13 +41,43 @@ describe('when passing a string', function () {
                         return;
                     }
 
-                    assert.strictEqual(output, 'module.exports = require(\"react\").createClass({render: function () { return (React.createElement(\"svg\", {viewBox: \"0 0 100 100\", xmlns: \"http://www.w3.org/2000/svg\"}, React.createElement(\"path\", {d: \"M0 0h100v100H0z\"}))); }});');
+                    assert.strictEqual(output, 'module.exports = require("react").createClass({render: function () { return (React.createElement("svg", {viewBox: "0 0 100 100", xmlns: "http://www.w3.org/2000/svg"}, React.createElement("path", {d: "M0 0h100v100H0z"}))); }});');
                     done();
                 }
             };
         });
 
         svgrt('foo.svg');
+        svg.forEach(write);
+        end();
+    });
+
+    it('wraps the svg with a span to use them as icons', function (done) {
+
+        var write, end;
+
+        svgrt.__set__('through', function () {
+
+            assert.strictEqual(arguments.length, 2);
+
+            write = arguments[0];
+            end   = arguments[1];
+
+            return {
+                queue: function (output) {
+
+                    if (!output) {
+
+                        return;
+                    }
+
+                    assert.strictEqual(output, 'module.exports = require("react").createClass({render: function () { return (React.createElement("span", {class: "icon icon-foo"}, React.createElement("svg", {viewBox: "0 0 100 100", xmlns: "http://www.w3.org/2000/svg"}, React.createElement("path", {d: "M0 0h100v100H0z"})))); }});');
+                    done();
+                }
+            };
+        });
+
+        svgrt({icon: true})('foo.svg');
         svg.forEach(write);
         end();
     });

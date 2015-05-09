@@ -1,4 +1,5 @@
 var through = require('through'),
+    path    = require('path'),
     extend  = require('extend'),
     SVGO    = require('svgo'),
     react   = require('react-tools'),
@@ -19,6 +20,18 @@ var isSVG = function (filename) {
     return (/\.svg$/i).test(filename);
 };
 
+var wrapScript = function (filename, data) {
+
+    return 'module.exports = require("react").createClass({render: function () { return (' + data + '); }});';
+};
+
+var wrapSpan = function (filename, data) {
+
+    return wrapScript(filename, '<span class="icon icon-' + path.basename(filename, '.svg') + '">' + data + '</span>');
+};
+
+var wrap = wrapScript;
+
 var transform = function (filename) {
 
     var write = function (buffer) {
@@ -33,7 +46,7 @@ var transform = function (filename) {
 
     var out = function (svg) {
 
-        var source = 'module.exports = require("react").createClass({render: function () { return (' + svg.data + '); }});',
+        var source = wrap(filename, svg.data),
             output = react.transform(source, settings.react);
 
         stream.queue(output);
@@ -57,6 +70,11 @@ module.exports = function (a) {
     extend(settings.svgo, a.svgo);
 
     svgo = new SVGO(settings.svgo);
+
+    if (a.icon) {
+
+        wrap = wrapSpan;
+    }
 
     return transform;
 };

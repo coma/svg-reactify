@@ -31,8 +31,9 @@ var browserify = require('browserify'),
 
 browserify({
     transform: [svgrt({
-		svgo : {}, // options passed to svgo
-		react: {}  // options passed to react-tools
+    	icon : true, // wrap it with a span with class "icon icon-filename"
+		svgo : {},   // options passed to svgo
+		react: {}    // options passed to react-tools
 	})]
 })
 .bundle()
