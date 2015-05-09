@@ -4,7 +4,7 @@
   "homepage"       : "https://github.com/coma/svg-reactify",
   "repository"     : "https://github.com/coma/svg-reactify",
   "main"           : "./index.js",
-  "version"        : "0.5.1",
+  "version"        : "0.5.2",
   "license"        : "MIT",
   "private"        : false,
   "authors"        : [

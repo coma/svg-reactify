@@ -27,7 +27,7 @@ var wrapScript = function (filename, data) {
 
 var wrapSpan = function (filename, data) {
 
-    return wrapScript(filename, '<span class="icon icon-' + path.basename(filename, '.svg') + '">' + data + '</span>');
+    return wrapScript(filename, '<span className="icon icon-' + path.basename(filename, '.svg') + '">' + data + '</span>');
 };
 
 var wrap = wrapScript;
