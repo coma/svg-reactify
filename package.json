@@ -36,7 +36,8 @@
         "test": "npm run lint && mocha"
     },
     "engines"        : {
-        "iojs": ">= 1.0.0"
+        "iojs": ">= 1.0.0",
+        "node": ">= 0.11.0"
     },
     "jest"           : {
         "testDirectoryName"         : "test",
