@@ -1,9 +1,14 @@
 var through = require('through'),
+    fs      = require('fs'),
     path    = require('path'),
     extend  = require('extend'),
     SVGO    = require('svgo'),
     react   = require('react-tools'),
+    _s      = require('underscore.string'),
     svgo    = new SVGO();
+
+var templates = ['all', 'svg', 'icon'],
+    types     = ['svg', 'icon'];
 
 var settings = {
     react: {
@@ -20,17 +25,24 @@ var isSVG = function (filename) {
     return (/\.svg$/i).test(filename);
 };
 
-var wrapScript = function (filename, data) {
+var getTemplate = function (type) {
 
-    return 'var React = require("react");module.exports = React.createClass({render: function () { return (' + data + '); }});';
+    return fs.readFileSync(path.join(__dirname, 'template', type + '.jsx'), {
+        encoding: 'utf8'
+    });
 };
 
-var wrapSpan = function (filename, data) {
+var type     = 'svg',
+    template = getTemplate('svg'),
+    render   = function (filename, data) {
 
-    return wrapScript(filename, '<span className="icon icon-' + path.basename(filename, '.svg') + '">' + data + '</span>');
+    var name = _s.slugify(path.basename(filename, '.svg'));
+
+    return template
+        .replace('__TYPE__', type)
+        .replace(/__NAME__/g, name)
+        .replace('__SVG__', data.replace('<svg', '<svg {...this.props}'));
 };
-
-var wrap = wrapScript;
 
 var transform = function (filename) {
 
@@ -46,7 +58,7 @@ var transform = function (filename) {
 
     var out = function (svg) {
 
-        var source = wrap(filename, svg.data),
+        var source = render(filename, svg.data),
             output = react.transform(source, settings.react);
 
         stream.queue(output);
@@ -71,9 +83,24 @@ module.exports = function (a) {
 
     svgo = new SVGO(settings.svgo);
 
-    if (a.icon) {
+    if (a.template) {
 
-        wrap = wrapSpan;
+        if (templates.indexOf(a.template) < 0) {
+
+            throw new Error('Template "' + a.template + '" not found...');
+        }
+
+        template = getTemplate(a.template);
+
+        if (a.template === 'all' && a.type) {
+
+            if (types.indexOf(a.type) < 0) {
+
+                throw new Error('Type "' + a.type + '" not found...');
+            }
+
+            type = a.type;
+        }
     }
 
     return transform;

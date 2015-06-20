@@ -1,84 +1,168 @@
-var rewire = require('rewire'),
-    assert = require('assert'),
-    svgrt  = rewire('..');
+var React     = require('react/addons'),
+    TestUtils = React.addons.TestUtils,
+    fs        = require('fs'),
+    vm        = require('vm'),
+    path      = require('path'),
+    svgrt     = require('..');
 
-var svg = [
-    '<?xml version="1.0" encoding="utf-8"?>',
-    '<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">',
-    '   <rect x="0" y="0" width="100" height="100"/>',
-    '</svg>'
-];
 
-describe('when passing a string', function () {
+// file: test/setup.js
+var jsdom = require('jsdom');
 
-    it('won\'t do anything if it isn\'t a SVG file', function (done) {
+// A super simple DOM ready for React to render into
+// Store this DOM and the window in global scope ready for React to access
+global.document = jsdom.jsdom('<!doctype html><html><body></body></html>');
+global.window = document.defaultView;
+global.navigator = window.navigator;
 
-        svgrt.__set__('through', function () {
+var load = function (file, test, settings) {
 
-            assert.strictEqual(arguments.length, 0);
+    settings = settings || {};
+
+    return function (done) {
+
+        file = path.join(__dirname, 'svg', file);
+
+        var ts     = settings ? svgrt(settings)(file) : svgrt(file),
+            result = '';
+
+        var svg  = fs.readFileSync(file, {
+            encoding: 'utf8'
+        });
+
+        ts.on('data', function (data) {
+
+            result += data;
+        });
+
+        ts.on('end', function () {
+
+            var m = new module.constructor();
+            m.paths = module.paths;
+            m._compile(result, file + '.js');
+
+            test(m.exports);
             done();
         });
 
-        svgrt('foo.png');
-    });
+        ts.write(svg);
+        ts.end();
+    };
+};
 
-    it('will work for a SVG file', function (done) {
+describe('The app', function () {
 
-        var write, end;
+    it('should work for svg template', load('some.svg', function (svg) {
 
-        svgrt.__set__('through', function () {
+        var component = React.createElement(svg),
+            rendered  = TestUtils.renderIntoDocument(component),
+            path      = TestUtils.findRenderedDOMComponentWithTag(rendered, 'path');
 
-            assert.strictEqual(arguments.length, 2);
+        (rendered.getDOMNode().tagName.toLowerCase()).should.equal('svg');
+        (rendered.getDOMNode().querySelector('path').getAttribute('d')).should.equal('M0 0h100v100H0z');
+    }));
 
-            write = arguments[0];
-            end   = arguments[1];
+    it('should work for svg template and pass parent props', load('some.svg', function (svg) {
 
-            return {
-                queue: function (output) {
+        var component = React.createElement(svg, {
+                className: 'foo'
+            }),
+            rendered  = TestUtils.renderIntoDocument(component),
+            path      = TestUtils.findRenderedDOMComponentWithTag(rendered, 'path');
 
-                    if (!output) {
+        (rendered.getDOMNode().tagName.toLowerCase()).should.equal('svg');
+        (rendered.getDOMNode().querySelector('path').getAttribute('d')).should.equal('M0 0h100v100H0z');
+        (rendered.getDOMNode().className).should.equal('foo');
+    }));
 
-                        return;
-                    }
+    it('should work for icon template and pass parent props', load('some.svg', function (svg) {
 
-                    assert.strictEqual(output, 'var React = require("react");module.exports = React.createClass({displayName: "exports",render: function () { return (React.createElement("svg", {viewBox: "0 0 100 100", xmlns: "http://www.w3.org/2000/svg"}, React.createElement("path", {d: "M0 0h100v100H0z"}))); }});');
-                    done();
-                }
-            };
-        });
+        var component = React.createElement(svg, {
+                className: 'foo'
+            }),
+            rendered  = TestUtils.renderIntoDocument(component),
+            path      = TestUtils.findRenderedDOMComponentWithTag(rendered, 'path');
 
-        svgrt('foo.svg');
-        svg.forEach(write);
-        end();
-    });
+        (rendered.getDOMNode().tagName.toLowerCase()).should.equal('span');
+        (rendered.getDOMNode().querySelector('path').getAttribute('d')).should.equal('M0 0h100v100H0z');
+        (rendered.getDOMNode().className).should.equal('icon icon-some foo');
 
-    it('wraps the svg with a span to use them as icons', function (done) {
+    }, {
+        template: 'icon'
+    }));
 
-        var write, end;
+    it('should work for all template and pass parent props', load('some.svg', function (svg) {
 
-        svgrt.__set__('through', function () {
+        var component = React.createElement(svg, {
+                className: 'foo',
+                type     : 'icon'
+            }),
+            rendered  = TestUtils.renderIntoDocument(component),
+            path      = TestUtils.findRenderedDOMComponentWithTag(rendered, 'path');
 
-            assert.strictEqual(arguments.length, 2);
+        (rendered.getDOMNode().tagName.toLowerCase()).should.equal('span');
+        (rendered.getDOMNode().querySelector('path').getAttribute('d')).should.equal('M0 0h100v100H0z');
+        (rendered.getDOMNode().className).should.equal('icon icon-some foo');
 
-            write = arguments[0];
-            end   = arguments[1];
+    }, {
+        template: 'all'
+    }));
 
-            return {
-                queue: function (output) {
+    it('should work for icon template', load('some.svg', function (svg) {
 
-                    if (!output) {
+        var component = React.createElement(svg),
+            rendered  = TestUtils.renderIntoDocument(component),
+            path      = TestUtils.findRenderedDOMComponentWithTag(rendered, 'path');
 
-                        return;
-                    }
+        (rendered.getDOMNode().tagName.toLowerCase()).should.equal('span');
+        (rendered.getDOMNode().querySelector('path').getAttribute('d')).should.equal('M0 0h100v100H0z');
+        (rendered.getDOMNode().className).should.equal('icon icon-some');
 
-                    assert.strictEqual(output, 'var React = require("react");module.exports = React.createClass({displayName: "exports",render: function () { return (React.createElement("span", {className: "icon icon-foo"}, React.createElement("svg", {viewBox: "0 0 100 100", xmlns: "http://www.w3.org/2000/svg"}, React.createElement("path", {d: "M0 0h100v100H0z"})))); }});');
-                    done();
-                }
-            };
-        });
+    }, {
+        template: 'icon'
+    }));
 
-        svgrt({icon: true})('foo.svg');
-        svg.forEach(write);
-        end();
-    });
+    it('should work for all template', load('some.svg', function (svg) {
+
+        var component = React.createElement(svg),
+            rendered  = TestUtils.renderIntoDocument(component),
+            path      = TestUtils.findRenderedDOMComponentWithTag(rendered, 'path');
+
+        (rendered.getDOMNode().tagName.toLowerCase()).should.equal('svg');
+        (rendered.getDOMNode().querySelector('path').getAttribute('d')).should.equal('M0 0h100v100H0z');
+
+    }, {
+        template: 'all'
+    }));
+
+    it('should work for all template and icon as default type', load('some.svg', function (svg) {
+
+        var component = React.createElement(svg),
+            rendered  = TestUtils.renderIntoDocument(component),
+            path      = TestUtils.findRenderedDOMComponentWithTag(rendered, 'path');
+
+        (rendered.getDOMNode().tagName.toLowerCase()).should.equal('span');
+        (rendered.getDOMNode().querySelector('path').getAttribute('d')).should.equal('M0 0h100v100H0z');
+        (rendered.getDOMNode().className).should.equal('icon icon-some');
+
+    }, {
+        template: 'all',
+        type    : 'icon'
+    }));
+
+    it('should work for all template and icon as default type but passing svg on props', load('some.svg', function (svg) {
+
+        var component = React.createElement(svg, {
+                type: 'svg'
+            }),
+            rendered  = TestUtils.renderIntoDocument(component),
+            path      = TestUtils.findRenderedDOMComponentWithTag(rendered, 'path');
+
+        (rendered.getDOMNode().tagName.toLowerCase()).should.equal('svg');
+        (rendered.getDOMNode().querySelector('path').getAttribute('d')).should.equal('M0 0h100v100H0z');
+
+    }, {
+        template: 'all',
+        type    : 'icon'
+    }));
 });

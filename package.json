@@ -1,39 +1,56 @@
 {
-  "name"           : "svg-reactify",
-  "description"    : "transform SVG files into React elements",
-  "homepage"       : "https://github.com/coma/svg-reactify",
-  "repository"     : "https://github.com/coma/svg-reactify",
-  "main"           : "./index.js",
-  "version"        : "0.5.2",
-  "license"        : "MIT",
-  "private"        : false,
-  "authors"        : [
-    "Eduardo García Sanz <eduardo@comakai.com>"
-  ],
-  "keywords"       : [
-    "browserify",
-    "react",
-    "svg",
-    "browserify-transform"
-  ],
-  "dependencies"   : {
-      "through"    : "^2.3",
-      "react-tools": "^0.13",
-      "svgo"       : "^0.5",
-      "extend"     : "^2"
-  },
-  "devDependencies": {
-      "jshint"        : "^2",
-      "jshint-stylish": "^1",
-      "mocha"         : "^2",
-      "rewire"        : "^2"
-  },
-  "scripts"           : {
-    "lint": "jshint --verbose --reporter node_modules/jshint-stylish/stylish.js index.js",
-    "test": "npm run lint && mocha test"
-  },
-  "engines"        : {
-    "iojs"         : ">= 1.0.0",
-    "node"         : ">= 0.11.0"
-  }
+    "name"           : "svg-reactify",
+    "description"    : "transform SVG files into React elements",
+    "homepage"       : "https://github.com/coma/svg-reactify",
+    "repository"     : "https://github.com/coma/svg-reactify",
+    "main"           : "./index.js",
+    "version"        : "1.0.0",
+    "license"        : "MIT",
+    "private"        : false,
+    "authors"        : [
+        "Eduardo García Sanz <eduardo@comakai.com>"
+    ],
+    "keywords"       : [
+        "browserify",
+        "react",
+        "svg",
+        "browserify-transform"
+    ],
+    "dependencies"   : {
+        "through"          : "2.3",
+        "react"            : "0.13",
+        "react-tools"      : "0.13",
+        "svgo"             : "0.5",
+        "extend"           : "2",
+        "underscore.string": "3.1"
+    },
+    "devDependencies": {
+        "jsdom"         : "5.4",
+        "mocha"         : "2.2",
+        "should"        : "7.0",
+        "jshint"        : "2",
+        "jshint-stylish": "1"
+    },
+    "scripts"        : {
+        "lint": "jshint --verbose --reporter node_modules/jshint-stylish/stylish.js index.js",
+        "test": "npm run lint && mocha"
+    },
+    "engines"        : {
+        "iojs": ">= 1.0.0",
+        "node": ">= 0.11.0"
+    },
+    "jest"           : {
+        "testDirectoryName"         : "test",
+        "scriptPreprocessor"        : "<rootDir>/preprocessor.js",
+        "testPathDirs"              : [
+            "<rootDir>"
+        ],
+        "unmockedModulePathPatterns": [
+            "<rootDir>"
+        ],
+        "moduleFileExtensions"      : [
+            "jsx",
+            "js"
+        ]
+    }
 }

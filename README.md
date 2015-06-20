@@ -31,9 +31,10 @@ var browserify = require('browserify'),
 
 browserify({
     transform: [svgrt({
-    	icon : true, // wrap it with a span with class "icon icon-filename"
-		svgo : {},   // options passed to svgo
-		react: {}    // options passed to react-tools
+    	svgo    : {},   	// options passed to svgo
+		react   : {},   	// options passed to react-tools
+		template: 'all',	// Choose from all, icon and svg (svg is the default)
+		type    : 'icon' 	// Choose from icon and svg (svg is the default)
 	})]
 })
 .bundle()
@@ -71,3 +72,27 @@ module.exports = React.createClass({
     }
 });
 ```
+
+Templates
+---------
+
+Templates are a way of ease the use of your svg's and there are three (maybe there will be more in the future, like
+one for symbols for example).
+
+All the templates inherit props to allow passing things like ```className```, ```id```...
+
+SVG Template
+============
+
+The default one, having the ```<svg>``` as the root.
+
+Icon Template
+=============
+
+This one has an ```<span class="icon icon-__SLUG_FROM FILES_NAME__>``` as the root.
+
+All Template
+============
+
+This one can be configured through the ```type``` prop to finally render as one of the above. The default type
+is svg but you can change it passing the type to the transform's config.
