@@ -37,7 +37,7 @@
     },
     "engines"        : {
         "iojs": ">= 1.0.0",
-        "node": ">= 0.11.0"
+        "node": ">= 0.12.0"
     },
     "jest"           : {
         "testDirectoryName"         : "test",
