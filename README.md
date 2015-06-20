@@ -81,18 +81,15 @@ one for symbols for example).
 
 All the templates inherit props to allow passing things like ```className```, ```id```...
 
-SVG Template
-============
+### SVG Template
 
 The default one, having the ```<svg>``` as the root.
 
-Icon Template
-=============
+### Icon Template
 
 This one has an ```<span class="icon icon-__SLUG_FROM FILES_NAME__>``` as the root.
 
-All Template
-============
+### All Template
 
 This one can be configured through the ```type``` prop to finally render as one of the above. The default type
 is svg but you can change it passing the type to the transform's config.
