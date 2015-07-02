@@ -3,7 +3,7 @@ var through = require('through'),
     path    = require('path'),
     extend  = require('extend'),
     SVGO    = require('svgo'),
-    react   = require('react-tools'),
+    babel   = require('babel'),
     _s      = require('underscore.string'),
     svgo    = new SVGO();
 
@@ -11,12 +11,7 @@ var templates = ['all', 'svg', 'icon'],
     types     = ['svg', 'icon'];
 
 var settings = {
-    react: {
-        es5       : true,
-        sourceMap : false,
-        stripTypes: false,
-        harmony   : false
-    },
+    babel: {},
     svgo : {}
 };
 
@@ -59,9 +54,9 @@ var transform = function (filename) {
     var out = function (svg) {
 
         var source = render(filename, svg.data),
-            output = react.transform(source, settings.react);
+            output = babel.transform(source, settings.babel);
 
-        stream.queue(output);
+        stream.queue(output.code);
         stream.queue(null);
     };
 
@@ -78,7 +73,7 @@ module.exports = function (a) {
         return transform(a);
     }
 
-    extend(settings.react, a.react);
+    extend(settings.babel, a.babel);
     extend(settings.svgo, a.svgo);
 
     svgo = new SVGO(settings.svgo);

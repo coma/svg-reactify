@@ -4,7 +4,7 @@
     "homepage"       : "https://github.com/coma/svg-reactify",
     "repository"     : "https://github.com/coma/svg-reactify",
     "main"           : "./index.js",
-    "version"        : "1.0.1",
+    "version"        : "1.0.2",
     "license"        : "MIT",
     "private"        : false,
     "authors"        : [
@@ -19,38 +19,46 @@
     "dependencies"   : {
         "through"          : "2.3",
         "react"            : "0.13",
-        "react-tools"      : "0.13",
+        "babel"            : "5.6",
         "svgo"             : "0.5",
-        "extend"           : "2",
+        "extend"           : "3.0",
         "underscore.string": "3.1"
     },
     "devDependencies": {
-        "jsdom"         : "5.4",
-        "mocha"         : "2.2",
-        "should"        : "7.0",
-        "jshint"        : "2",
-        "jshint-stylish": "1"
+        "jsdom" : "5.4",
+        "mocha" : "2.2",
+        "should": "7.0",
+        "eslint": "0.24"
     },
     "scripts"        : {
-        "lint": "jshint --verbose --reporter node_modules/jshint-stylish/stylish.js index.js",
+        "lint": "eslint index.js",
         "test": "npm run lint && mocha"
     },
     "engines"        : {
         "iojs": ">= 1.0.0",
         "node": ">= 0.11.0"
     },
-    "jest"           : {
-        "testDirectoryName"         : "test",
-        "scriptPreprocessor"        : "<rootDir>/preprocessor.js",
-        "testPathDirs"              : [
-            "<rootDir>"
-        ],
-        "unmockedModulePathPatterns": [
-            "<rootDir>"
-        ],
-        "moduleFileExtensions"      : [
-            "jsx",
-            "js"
-        ]
+    "eslintConfig"   : {
+        "env"         : {
+            "node": true
+        },
+        "rules"       : {
+            "strict"                     : 0,
+            "new-cap"                    : 0,
+            "eqeqeq"                     : 2,
+            "curly"                      : 2,
+            "quotes"                     : [
+                1,
+                "single"
+            ],
+            "no-unreachable"             : 2,
+            "space-before-blocks"        : 2,
+            "space-before-function-paren": 2,
+            "no-multi-spaces"            : 0,
+            "key-spacing"                : 0,
+            "no-mixed-requires"          : 0,
+            "no-use-before-define"       : 0,
+            "no-underscore-dangle"       : 0
+        }
     }
 }
