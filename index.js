@@ -41,7 +41,7 @@ var type     = 'svg',
     return template
         .replace('__TYPE__', type)
         .replace(/__NAME__/g, name)
-        .replace('__SVG__', data.replace('<svg', '<svg {...this.props}'));
+        .replace('__SVG__', data.replace('<svg', '<svg {...props}'));
 };
 
 var transform = function (filename) {

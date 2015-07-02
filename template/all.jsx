@@ -1,15 +1,20 @@
 var React = require('react'),
-    SVG   = __SVG__;
+    SVG   = function (props) {
+
+        return __SVG__;
+    };
 
 module.exports = React.createClass({
     displayName: 'svg-__NAME__',
     propTypes  : {
-        type: React.PropTypes.oneOf(['svg', 'icon'])
+        type: React.PropTypes.oneOf(['svg', 'icon']),
+        svg : React.PropTypes.object
     },
     getDefaultProps: function() {
 
         return {
-            type: '__TYPE__'
+            type: '__TYPE__',
+            svg : {}
         };
     },
     render     : function () {
@@ -17,7 +22,7 @@ module.exports = React.createClass({
         switch (this.props.type) {
 
             case 'svg':
-                return SVG;
+                return SVG(this.props);
 
             case 'icon':
 
@@ -28,7 +33,7 @@ module.exports = React.createClass({
                     className += ' ' + this.props.className;
                 }
 
-                return <span { ...this.props } className={ className }>{ SVG }</span>;
+                return <span { ...this.props } className={ className }>{ SVG(this.props.svg) }</span>;
         }
     }
 });
