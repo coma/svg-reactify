@@ -4,7 +4,7 @@
     "homepage"       : "https://github.com/coma/svg-reactify",
     "repository"     : "https://github.com/coma/svg-reactify",
     "main"           : "./index.js",
-    "version"        : "1.0.2",
+    "version"        : "1.0.3",
     "license"        : "MIT",
     "private"        : false,
     "authors"        : [
@@ -13,13 +13,14 @@
     "keywords"       : [
         "browserify",
         "react",
+        "reactjs",
         "svg",
         "browserify-transform"
     ],
     "dependencies"   : {
         "through"          : "2.3",
-        "react"            : "0.13",
-        "babel"            : "5.6",
+        "react"            : "0.13||>=0.14.0-beta3",
+        "babel"            : "5.8",
         "svgo"             : "0.5",
         "extend"           : "3.0",
         "underscore.string": "3.1"
@@ -28,7 +29,7 @@
         "jsdom" : "5.4",
         "mocha" : "2.2",
         "should": "7.0",
-        "eslint": "0.24"
+        "eslint": "1.1"
     },
     "scripts"        : {
         "lint": "eslint index.js",
