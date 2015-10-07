@@ -23,7 +23,7 @@
         "babel"            : "5.8",
         "svgo"             : "0.5",
         "extend"           : "3.0",
-        "underscore.string": "3.1"
+        "underscore.string": "3.2"
     },
     "devDependencies": {
         "jsdom" : "5.4",
