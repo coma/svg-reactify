@@ -19,11 +19,11 @@
     ],
     "dependencies"   : {
         "through"          : "2.3",
-        "react"            : "0.13||>=0.14.0-beta3",
+        "react"            : "0.14",
         "babel"            : "5.8",
         "svgo"             : "0.5",
         "extend"           : "3.0",
-        "underscore.string": "3.1"
+        "underscore.string": "3.2"
     },
     "devDependencies": {
         "jsdom" : "5.4",
