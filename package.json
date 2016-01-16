@@ -7,8 +7,9 @@
     "version"        : "1.1.0",
     "license"        : "MIT",
     "private"        : false,
-    "authors"        : [
-        "Eduardo García Sanz <eduardo@comakai.com>"
+    "author"         : "Eduardo García Sanz <eduardo@comakai.com>",
+    "contributors"   : [
+        "Anders Stalheim Øfsdahl <https://github.com/andersaloof>"
     ],
     "keywords"       : [
         "browserify",
