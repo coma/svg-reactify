@@ -1,5 +1,5 @@
-var React     = require('react/addons'),
-    TestUtils = React.addons.TestUtils,
+var React     = require('react'),
+    TestUtils = require('react-addons-test-utils'),
     fs        = require('fs'),
     vm        = require('vm'),
     path      = require('path'),
