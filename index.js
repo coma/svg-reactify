@@ -12,7 +12,15 @@ var templates = ['all', 'svg', 'icon'],
 
 var settings = {
     babel: {},
-    svgo : {}
+    svgo : {
+        plugins: [
+            {
+                removeViewBox: false
+            }, {
+                removeUselessStrokeAndFill: false
+            }
+        ]
+    }
 };
 
 var isSVG = function (filename) {
@@ -42,12 +50,10 @@ var type     = 'svg',
 var transform = function (filename) {
 
     var write = function (buffer) {
-
         data += buffer;
     };
 
     var end = function () {
-
         svgo.optimize(data, out);
     };
 
@@ -55,6 +61,14 @@ var transform = function (filename) {
 
         var source = render(filename, svg.data),
             output = babel.transform(source, settings.babel);
+
+        var replaceAttribute = function (a, str) {
+          return str.replace(/-(.)/g, function (_, letter) {
+            return letter.toUpperCase();
+          });
+        };
+
+        output.code = output.code.replace(/\"(clip-path|fill-opacity|font-family|font-size|marker-end|marker-mid|marker-start|stop-color|stop-opacity|stroke-width|stroke-linecap|stroke-dasharray|stroke-opacity|text-anchor)\"/g, replaceAttribute);
 
         stream.queue(output.code);
         stream.queue(null);
