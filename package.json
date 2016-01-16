@@ -9,6 +9,7 @@
     "private"        : false,
     "author"         : "Eduardo García Sanz <eduardo@comakai.com>",
     "contributors"   : [
+        "Matthew Brandly <matt@brandly.me>",
         "Anders Stalheim Øfsdahl <https://github.com/andersaloof>"
     ],
     "keywords"       : [
