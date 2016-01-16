@@ -20,6 +20,7 @@
     "dependencies"   : {
         "through"          : "2.3",
         "react"            : "0.14",
+        "react-addons-test-utils": "0.14",
         "babel"            : "5.8",
         "svgo"             : "0.5",
         "extend"           : "3.0",
