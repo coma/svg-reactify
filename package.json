@@ -4,11 +4,13 @@
     "homepage"       : "https://github.com/coma/svg-reactify",
     "repository"     : "https://github.com/coma/svg-reactify",
     "main"           : "./index.js",
-    "version"        : "1.0.3",
+    "version"        : "1.1.0",
     "license"        : "MIT",
     "private"        : false,
-    "authors"        : [
-        "Eduardo García Sanz <eduardo@comakai.com>"
+    "author"         : "Eduardo García Sanz <eduardo@comakai.com>",
+    "contributors"   : [
+        "Matthew Brandly <matt@brandly.me>",
+        "Anders Stalheim Øfsdahl <https://github.com/andersaloof>"
     ],
     "keywords"       : [
         "browserify",
