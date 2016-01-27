@@ -63,12 +63,18 @@ var transform = function (filename) {
             output = babel.transform(source, settings.babel);
 
         var replaceAttribute = function (a, str) {
-          return str.replace(/-(.)/g, function (_, letter) {
-            return letter.toUpperCase();
-          });
+          switch (str) {
+            case 'class':
+              return 'className';
+
+            default:
+              return str.replace(/-(.)/g, function (_, letter) {
+                return letter.toUpperCase();
+              });
+          }
         };
 
-        output.code = output.code.replace(/\"(clip-path|fill-opacity|font-family|font-size|marker-end|marker-mid|marker-start|stop-color|stop-opacity|stroke-width|stroke-linecap|stroke-dasharray|stroke-opacity|text-anchor)\"/g, replaceAttribute);
+        output.code = output.code.replace(/\"(class|clip-path|fill-opacity|font-family|font-size|marker-end|marker-mid|marker-start|stop-color|stop-opacity|stroke-width|stroke-linecap|stroke-dasharray|stroke-opacity|text-anchor)\"/g, replaceAttribute);
 
         stream.queue(output.code);
         stream.queue(null);

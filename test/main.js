@@ -176,4 +176,19 @@ describe('The app', function () {
     }, {
         template: 'all'
     }));
+
+    it('should work for all template and keep class attribute intact via props', load('some.svg', function (svg) {
+
+        var component = React.createElement(svg, {
+                type: 'svg'
+            }),
+            rendered  = TestUtils.renderIntoDocument(component),
+            path      = TestUtils.findRenderedDOMComponentWithTag(rendered, 'path');
+
+        (rendered.getDOMNode().tagName.toLowerCase()).should.equal('svg');
+        (rendered.getDOMNode().querySelector('path').getAttribute('d')).should.equal('M0 0h100v100H0z');
+        (rendered.getDOMNode().querySelector('path').getAttribute('class')).should.equal('someclass');
+    }, {
+        template: 'all'
+    }));
 });
