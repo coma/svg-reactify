@@ -1,43 +1,31 @@
 svg-reactify
 ============
 
-[![Build Status](https://travis-ci.org/coma/svg-reactify.png?branch=master)](https://travis-ci.org/coma/svg-reactify)
-[![Dependency Status](https://david-dm.org/coma/svg-reactify.png)](http://david-dm.org/coma/svg-reactify)
+[![Build Status](https://travis-ci.org/coma/svg-reactify.png?branch=v2.x)](https://travis-ci.org/coma/svg-reactify?branch=v2.x)
+[![Dependency Status](https://david-dm.org/coma/svg-reactify/v2.x.png)](http://david-dm.org/coma/svg-reactify/v2.x)
 [![NPM version](https://badge.fury.io/js/svg-reactify.png)](http://badge.fury.io/js/svg-reactify)
-![io.js supported](https://img.shields.io/badge/io.js-supported-green.svg?style=flat)
 
 Transform SVG files into React elements.
 
-Setup
------
+Configuration
+-------------
 
-Without configuration...
+As with most browserify transforms, you can configure it via the second argument to `bundle.transform`:
 
-```javascript
-var browserify = require('browserify'),
-    svgrt      = require('svg-reactify');
-
-browserify({
-    transform: [svgrt]
-})
-.bundle()
+```js
+bundle.transform(require('svg-reactify'), { default: 'image' });
 ```
 
-and with some configuration...
+or inside your `package.json` configuration:
 
-```javascript
-var browserify = require('browserify'),
-    svgrt      = require('svg-reactify');
-
-browserify({
-    transform: [svgrt({
-    	svgo    : {},   	// options passed to svgo
-		react   : {},   	// options passed to react-tools
-		template: 'all',	// Choose from all, icon and svg (svg is the default)
-		type    : 'icon' 	// Choose from icon and svg (svg is the default)
-	})]
-})
-.bundle()
+```json
+{
+    "browserify": {
+        "transform": [
+            ["svg-reactify", { "default": "image" }]
+        ]
+    }
+}
 ```
 
 Requiring SVG files
@@ -81,15 +69,23 @@ one for symbols for example).
 
 All the templates inherit props to allow passing things like ```className```, ```id```...
 
-### SVG Template
+You can select one type as default by setting the default option to ```image``` or to ```icon``` and also setting a
+regex string like:
 
-The default one, having the ```<svg>``` as the root.
+```json
+{
+    "browserify": {
+        "transform": [
+            ["svg-reactify", { "default": "image", "icon": ".icon" }]
+        ]
+    }
+}
+```
 
 ### Icon Template
 
-This one has an ```<span class="icon icon-__SLUG_FROM FILES_NAME__>``` as the root.
+This one has an ```<span class="icon icon-__FILENAME_IN_KEBABCASE__>``` as the root.
 
-### All Template
+### Image Template
 
-This one can be configured through the ```type``` prop to finally render as one of the above. The default type
-is svg but you can change it passing the type to the transform's config.
+The default one, having the ```<svg>``` as the root.
