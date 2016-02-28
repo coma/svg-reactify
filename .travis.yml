@@ -1,4 +1,7 @@
 language: node_js
+node_js:
+  - "4.3.1"
+  - "5.7.0"
 deploy:
   provider: npm
   email: eduardo@comakai.com
