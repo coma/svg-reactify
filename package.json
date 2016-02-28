@@ -23,7 +23,9 @@
         "through"          : "2.3",
         "react"            : "0.14",
         "react-addons-test-utils": "0.14",
-        "babel"            : "5.8",
+        "babel-core"       : "6.3",
+        "babel-preset-es2015": "6.3",
+        "babel-preset-react": "6.3",
         "svgo"             : "0.5",
         "extend"           : "3.0",
         "underscore.string": "3.2"

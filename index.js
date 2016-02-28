@@ -3,7 +3,7 @@ var through = require('through'),
     path    = require('path'),
     extend  = require('extend'),
     SVGO    = require('svgo'),
-    babel   = require('babel'),
+    babel   = require('babel-core'),
     _s      = require('underscore.string'),
     svgo    = new SVGO();
 
@@ -11,7 +11,7 @@ var templates = ['all', 'svg', 'icon'],
     types     = ['svg', 'icon'];
 
 var settings = {
-    babel: {},
+    babel: { presets: ['es2015', 'react'] },
     svgo : {
         plugins: [
             {
