@@ -1,0 +1,19 @@
+{
+    "parser": "babel-eslint",
+    "rules" : {
+        "strict"                     : 0,
+        "new-cap"                    : 0,
+        "eqeqeq"                     : 2,
+        "curly"                      : 2,
+        "quotes"                     : [
+            1,
+            "single"
+        ],
+        "no-unreachable"             : 2,
+        "space-before-blocks"        : 2,
+        "space-before-function-paren": 2,
+        "no-multi-spaces"            : 0,
+        "key-spacing"                : 0,
+        "no-mixed-requires"          : 0
+    }
+}

@@ -1,6 +1,4 @@
 language: node_js
-node_js :
-- "iojs"
 deploy:
   provider: npm
   email: eduardo@comakai.com
