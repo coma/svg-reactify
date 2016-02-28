@@ -48,8 +48,7 @@
         "clean"     : "rm -rf ./lib",
         "lint"      : "eslint src",
         "build"     : "npm run clean && babel src --out-dir lib",
-        "test"      : "babel-node test",
-        "fooo"      : "npm run lint && babel-node test && npm run build",
+        "test"      : "npm run lint && babel-node test",
         "prepublish": "npm test && npm run build"
     },
     "engines"         : {
