@@ -23,7 +23,7 @@
         "browserify-transform"
     ],
     "dependencies"    : {
-        "babel-core"         : "6.5",
+        "babel-core"         : "6.6",
         "babel-preset-react" : "6.5",
         "lodash.camelcase"   : "4.1",
         "lodash.kebabcase"   : "4.0",
