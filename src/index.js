@@ -12,6 +12,8 @@ const SVG_REGEX  = /\.svg$/i,
 
 const svgo = new SVGO({
     plugins: [
+        {convertStyleToAttrs: true},
+        {removeAttrs: {attrs: 'style'}},
         {removeViewBox: false},
         {removeUselessStrokeAndFill: false}
     ]
@@ -58,7 +60,7 @@ function createTransformer (filename, template) {
     return through(handleStream, finishStream);
 }
 
-export default (filename, options = {}) => {
+module.exports = (filename, options = {}) => {
 
     if (!SVG_REGEX.test(filename)) {
 

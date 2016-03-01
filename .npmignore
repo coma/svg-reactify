@@ -1,5 +1,6 @@
 /src
 /test
+.idea
 .babelrc
 .eslintrc
 .gitignore
