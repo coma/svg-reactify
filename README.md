@@ -2,7 +2,7 @@ svg-reactify
 ============
 
 [![Build Status](https://travis-ci.org/coma/svg-reactify.png?branch=v2.x)](https://travis-ci.org/coma/svg-reactify?branch=v2.x)
-[![Dependency Status](https://david-dm.org/coma/svg-reactify/v2.x.png)](http://david-dm.org/coma/svg-reactify/v2.x)
+[![Dependency Status](https://david-dm.org/coma/svg-reactify/2.0.0.png)](http://david-dm.org/coma/svg-reactify/2.0.0)
 [![NPM version](https://badge.fury.io/js/svg-reactify.png)](http://badge.fury.io/js/svg-reactify)
 
 Transform SVG files into React elements.
