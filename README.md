@@ -64,28 +64,62 @@ module.exports = React.createClass({
 Templates
 ---------
 
-Templates are a way of ease the use of your svg's and there are three (maybe there will be more in the future, like
-one for symbols for example).
+svg-reactify uses templates to produce the react components. Currently there are two templates available - `image` and `icon`. Maybe there will be more in the future, like one for symbols for example.
 
-All the templates inherit props to allow passing things like ```className```, ```id```...
-
-You can select one type as default by setting the default option to ```image``` or to ```icon``` and also setting a
-regex string like:
+Choose the default template using the `default` option. You can also set a regex for choosing templates based on filename like:
 
 ```json
 {
     "browserify": {
         "transform": [
-            ["svg-reactify", { "default": "image", "icon": ".icon" }]
+            ["svg-reactify", { "default": "image", "icon": "\.icon" }]
         ]
     }
 }
 ```
 
+This will use the `image` template by default and `icon` if the filename matches the regex `\.icon`. The other way around would be for example `["svg-reactify", { "default": "icon", "image": "\.image" }]`.
+
 ### Icon Template
 
-This one has an ```<span class="icon icon-__FILENAME_IN_KEBABCASE__>``` as the root.
+This template will produce a DOM tree looking like:
+
+```html
+<span class="icon icon-__FILENAME_IN_KEBABCASE__">
+   <svg .... />
+</span>
+```
+
+The `<span>` element will also inherit any props given to the element, for example the following react element:
+
+```html
+<SVG.Dog className="customClass" something="else"/>
+```
+
+... will override the default class and produce:
+
+```html
+<span class="customClass" something="else">
+   <svg .... />
+</span>
+```
+
+You could then style the svg element further through CSS, for example:
+
+```css
+.customClass > svg {
+  width: 100px;
+  height: 100px;
+  fill: #00ff00;
+}
+```
 
 ### Image Template
 
-The default one, having the ```<svg>``` as the root.
+This template will produce a DOM tree containing only the SVG:
+
+```html
+<svg .... />
+```
+
+It will NOT pass on any props given to the element, so you cannot set the className or such.
