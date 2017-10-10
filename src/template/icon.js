@@ -1,7 +1,6 @@
 export default (name, svg) => `var React = require('react'), SVG = ${ svg }
 
 const icon = (props) => {
-  console.log(props);
   return React.createElement('span', props, SVG); 
 };
 
