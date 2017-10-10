@@ -1,15 +1,14 @@
 export default (name, svg) => `var React = require('react'), SVG = ${ svg }
 
-module.exports = React.createClass({
-    displayName: 'svg-${ name }',
-    getDefaultProps: function () {
+const icon = (props) => {
+  console.log(props);
+  return React.createElement('span', props, SVG); 
+};
 
-        return {
-            className: 'icon icon-${ name }'
-        };
-    },
-    render: function () {
+icon.displayName = 'svg-${ name }';
 
-        return React.createElement('span', this.props, SVG);
-    }
-});`;
+icon.defaultProps = {
+  className: 'icon icon-${ name }'
+};
+
+module.exports = icon;`;

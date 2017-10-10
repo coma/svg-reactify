@@ -1,57 +1,57 @@
 {
-    "name"            : "svg-reactify",
-    "description"     : "transform SVG files into React elements",
-    "homepage"        : "https://github.com/coma/svg-reactify",
-    "repository"      : {
+    "name": "svg-reactify",
+    "description": "transform SVG files into React elements",
+    "homepage": "https://github.com/coma/svg-reactify",
+    "repository": {
         "type": "git",
-        "url" : "git://github.com/coma/svg-reactify.git"
+        "url": "git://github.com/coma/svg-reactify.git"
     },
-    "version"         : "2.0.0",
-    "main"            : "lib",
-    "license"         : "MIT",
-    "private"         : false,
-    "author"          : "Eduardo García Sanz <eduardo@comakai.com>",
-    "contributors"    : [
+    "version": "2.0.0",
+    "main": "lib",
+    "license": "MIT",
+    "private": false,
+    "author": "Eduardo García Sanz <eduardo@comakai.com>",
+    "contributors": [
         "Matthew Brandly <matt@brandly.me>",
         "Anders Stalheim Øfsdahl <https://github.com/andersaloof>"
     ],
-    "keywords"        : [
+    "keywords": [
         "browserify",
         "react",
         "reactjs",
         "svg",
         "browserify-transform"
     ],
-    "dependencies"    : {
-        "babel-core"         : "^6.10.4",
-        "babel-preset-react" : "^6.11.1",
-        "lodash.camelcase"   : "^4.1.1",
-        "lodash.kebabcase"   : "^4.0.1",
-        "svgo"               : "^0.6.6",
-        "through2"           : "^2.0.1"
+    "dependencies": {
+        "babel-core": "^6.10.4",
+        "babel-preset-react": "^6.11.1",
+        "lodash.camelcase": "^4.1.1",
+        "lodash.kebabcase": "^4.0.1",
+        "svgo": "^0.6.6",
+        "through2": "^2.0.1"
     },
     "peerDependencies": {
-        "react": "^0.14.0 || ^15.0.0"
+        "react": "^0.14.0 || ^16.0.0"
     },
-    "devDependencies" : {
-        "babel-cli"              : "^6.10.1",
-        "babel-eslint"           : "^6.1.0",
-        "babel-preset-es2015"    : "^6.9.0",
-        "enzyme"                 : "^2.3.0",
-        "eslint"                 : "^2.13.1",
-        "react"                  : "^15.1.0",
+    "devDependencies": {
+        "babel-cli": "^6.10.1",
+        "babel-eslint": "^6.1.0",
+        "babel-preset-es2015": "^6.9.0",
+        "enzyme": "^2.3.0",
+        "eslint": "^2.13.1",
+        "react": "^15.0.0",
+        "react-dom": "^15.0.0",
         "react-addons-test-utils": "^15.1.0",
-        "react-dom"              : "^15.1.0",
-        "tape"                   : "^4.6.0"
+        "tape": "^4.6.0"
     },
-    "scripts"         : {
-        "clean"     : "rm -rf ./lib",
-        "lint"      : "eslint src",
-        "build"     : "npm run clean && babel src --out-dir lib",
-        "test"      : "npm run lint && babel-node test",
+    "scripts": {
+        "clean": "rm -rf ./lib",
+        "lint": "eslint src",
+        "build": "npm run clean && babel src --out-dir lib",
+        "test": "npm run lint && babel-node test",
         "prepublish": "npm test && npm run build"
     },
-    "engines"         : {
+    "engines": {
         "node": ">= 4.0.0"
     }
 }
