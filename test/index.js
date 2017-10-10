@@ -1,7 +1,11 @@
-import transform   from './transform';
-import { shallow } from 'enzyme';
-import React       from 'react';
-import test        from 'tape';
+import transform     from './transform';
+import { shallow }   from 'enzyme';
+import { configure } from 'enzyme';
+import Adapter       from 'enzyme-adapter-react-15';
+import React         from 'react';
+import test          from 'tape';
+
+configure({ adapter: new Adapter() });
 
 test('using the default options', t => {
 
@@ -10,7 +14,7 @@ test('using the default options', t => {
 	transform({}, SVG => {
 
 		const c = shallow(<SVG />);
-    
+
     	t.ok(c.is('span'), 'the root is an span');
     	t.ok(c.hasClass('icon'), 'the root has the icon class');
     	t.ok(c.hasClass('icon-some'), 'the root has the kebab file name class');
