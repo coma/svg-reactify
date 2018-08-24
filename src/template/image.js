@@ -1,9 +1,10 @@
 export default (name, svg) => `var React = require('react'), SVG = ${ svg }
 
-module.exports = React.createClass({
-    displayName: 'svg-${ name }',
-    render     : function () {
+function SVGComponent(props) {
 
-        return SVG;
-    }
-});`;
+    return SVG;
+}
+
+SVGComponent.displayName = 'svg-${ name }';
+
+module.exports = SVGComponent`;
